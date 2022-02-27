@@ -1,11 +1,12 @@
-import { memo } from 'react';
+import { forwardRef, memo } from 'react';
 
-const Button = ({ label, code, color, onClickHandler }) => {
+const Button = forwardRef(({ label, code, color, onClickHandler }, ref) => {
     return (
         <button
             id="lap-reset-btn"
             className={`bg-${color}-600 rounded-full w-16 h-16 relative flex flex-col justify-center items-center cursor-pointer shadow-md `}
             onClick={onClickHandler}
+            ref={ref}
         >
             <p id="lap-reset-btn-label" className="text-base">
                 {label}
@@ -13,6 +14,6 @@ const Button = ({ label, code, color, onClickHandler }) => {
             <p className="text-xs">{code}</p>
         </button>
     );
-};
+});
 
 export default memo(Button);
