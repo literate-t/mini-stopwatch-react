@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useTimer from '../hooks/useTimer';
 import Button from './Button';
 import Laps from './Laps';
@@ -10,8 +10,9 @@ import Timer from './Timer';
 const Stopwatch = () => {
     const { start, pause, centisecond, isRunning, createLap, reset, laps } =
         useTimer();
-    const keyInputHandler = useCallback(
-        (e) => {
+
+    useEffect(() => {
+        const keyInputHandler = (e) => {
             let fn;
             switch (e.code) {
                 case 'KeyS':
@@ -21,18 +22,15 @@ const Stopwatch = () => {
                     fn = isRunning ? createLap : reset;
                     break;
                 default:
-                    break;
+                    return;
             }
             fn();
-        },
-        [pause, start, createLap, reset, isRunning]
-    );
-    useEffect(() => {
+        };
         document.addEventListener('keydown', keyInputHandler);
         return () => {
             document.removeEventListener('keydown', keyInputHandler);
         };
-    }, [isRunning, keyInputHandler]);
+    }, [isRunning, start, pause, createLap, reset]);
     // 핸들러 중복 등록 안 되므로 문제 없을 것
     // 하지만 unmount 될 떄 핸들러를 제거할 방법이 없음
     // document.addEventListener('keydown', hi);
