@@ -23,19 +23,19 @@ const useTimer = () => {
         setIsRunning((prev) => !prev);
     }, [timerInterval, setTimerInterval, setIsRunning]);
 
-    const createLap = () => {
+    const createLap = useCallback(() => {
         setLapCount((prev) => prev + 1);
         const lapTime = centisecond - prevLap.current;
         setLaps((prev) => [[lapCount, lapTime], ...prev]);
         prevLap.current = centisecond;
-    };
+    }, [setLapCount, setLaps, centisecond, lapCount]);
 
-    const reset = () => {
+    const reset = useCallback(() => {
         setCentisecond(0);
-        setLapCount(0);
+        setLapCount(1);
         prevLap.current = 0;
         setLaps([]);
-    };
+    }, [setCentisecond, setLapCount, setLaps]);
 
     return { centisecond, start, pause, createLap, reset, isRunning, laps };
 };
