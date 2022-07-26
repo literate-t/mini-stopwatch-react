@@ -1,12 +1,13 @@
 import React from 'react';
+import { formatTime } from '../util';
 
-const Timer = () => {
+const Timer = ({ centisecond }) => {
     return (
         <h1
             id="timer"
             className="text-5xl font-extrabold pb-8 text-center tracking-tighter break-words"
         >
-            00:00.00
+            {formatTime(centisecond)}
         </h1>
     );
 };

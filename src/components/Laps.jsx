@@ -14,4 +14,4 @@ const Laps = () => {
     );
 };
 
-export default Laps;
+export default React.memo(Laps);
